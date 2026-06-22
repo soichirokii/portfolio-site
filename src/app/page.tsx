@@ -9,7 +9,7 @@ import WorksSlider from "@/components/WorksSlider";
 const BEELOG_META = [
   { num: "01", heading: "課外活動の情報格差をなくしたい。", slug: "beelog-logo" },
   { num: "02", heading: "ロゴからサイトまで、全部ひとりで。", slug: "beelog-website" },
-  { num: "03", heading: "ものの見方が変わった。", slug: "beelog-sns" },
+  { num: "03", heading: "情報を届けるだけで、終わらせない。", slug: "beelog-sns" },
 ];
 
 export default async function TopPage() {
