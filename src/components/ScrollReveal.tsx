@@ -22,18 +22,26 @@ export default function ScrollReveal({ children, className = "", delay = 0 }: Pr
       return;
     }
 
+    let timer: ReturnType<typeof setTimeout>;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          const timer = setTimeout(() => setVisible(true), delay);
+        // Reveal when the element scrolls into view, OR when it is already
+        // above the viewport on mount (e.g. a reload mid-page or a deep link).
+        // Without the second case, content scrolled past at load would stay
+        // stuck at opacity:0 forever.
+        const alreadyPassed = entry.boundingClientRect.top < 0;
+        if (entry.isIntersecting || alreadyPassed) {
+          timer = setTimeout(() => setVisible(true), alreadyPassed ? 0 : delay);
           observer.unobserve(el);
-          return () => clearTimeout(timer);
         }
       },
       { threshold: 0.15 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
   }, [delay]);
 
   return (
