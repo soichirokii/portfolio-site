@@ -4,6 +4,7 @@ import { fetchAllWorks } from "@/lib/notion";
 import ScrollReveal from "@/components/ScrollReveal";
 import WorksSlider from "@/components/WorksSlider";
 import BeelogSticky from "@/components/BeelogSticky";
+import HeroTitle from "@/components/HeroTitle";
 
 // Editorial headings for the Top-page spotlight. Title / overview / image
 // are pulled live from Notion (single source of truth — never goes stale).
@@ -53,16 +54,7 @@ export default async function TopPage() {
 
             {/* Right: Text */}
             <div className="w-full md:w-[40%] flex flex-col gap-6 pl-0 md:pl-12 order-2 md:order-2 pb-16 md:pb-0">
-              <h1
-                className="font-mincho leading-tight"
-                style={{
-                  fontSize: "clamp(28px, 4vw, 40px)",
-                  fontWeight: 500,
-                  color: "var(--color-text)",
-                }}
-              >
-                いつも通りに、<br />きらめきを。
-              </h1>
+              <HeroTitle />
               <p
                 className="text-sm leading-relaxed"
                 style={{ color: "var(--color-sub)" }}
@@ -117,7 +109,7 @@ export default async function TopPage() {
           <ScrollReveal>
             <div className="flex justify-center mt-10">
               <Link href="/works" className="btn-secondary">
-                Works 一覧を見る →
+                Works 一覧を見る <span className="arrow">→</span>
               </Link>
             </div>
           </ScrollReveal>

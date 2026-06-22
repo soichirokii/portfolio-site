@@ -130,7 +130,7 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
                         className="btn-secondary"
                         style={{ alignSelf: "flex-start" }}
                       >
-                        {b.title} →
+                        {b.title} <span className="arrow">→</span>
                       </Link>
                     </div>
                   ))}
