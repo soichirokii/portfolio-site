@@ -33,6 +33,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className={`${dmSans.variable} ${shippori.variable} ${dmSerif.variable}`}>
+      <head>
+        {/* Mark JS as available before first paint. Reveal styles only apply
+            when this class is present, so content is never stuck invisible
+            if JS fails to load or run. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js');",
+          }}
+        />
+      </head>
       <body>
         <Navbar />
         <main>{children}</main>
