@@ -69,7 +69,7 @@ export async function fetchAllWorks(): Promise<Work[]> {
         sorts: [{ property: "Order", direction: "ascending" }],
         filter: { property: "Status", select: { equals: "公開中" } },
       }),
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     });
     if (!res.ok) return STATIC_WORKS;
     const data = await res.json();
@@ -89,7 +89,7 @@ export async function getWorkBySlug(slug: string): Promise<Work | null> {
       body: JSON.stringify({
         filter: { property: "Slug", rich_text: { equals: slug } },
       }),
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     });
     if (!res.ok) return null;
     const data = await res.json();
