@@ -3,6 +3,7 @@ import Image from "next/image";
 import { fetchAllWorks } from "@/lib/notion";
 import ScrollReveal from "@/components/ScrollReveal";
 import WorksSlider from "@/components/WorksSlider";
+import BeelogSticky from "@/components/BeelogSticky";
 
 // Editorial headings for the Top-page spotlight. Title / overview / image
 // are pulled live from Notion (single source of truth — never goes stale).
@@ -94,70 +95,8 @@ export default async function TopPage() {
             </h2>
           </ScrollReveal>
 
-          {/* BEElog Spotlight blocks */}
-          <div className="flex flex-col gap-0">
-            {beelogBlocks.map((block, i) => (
-              <ScrollReveal key={block.num} delay={i * 80}>
-                <div
-                  className="flex flex-col md:flex-row items-start gap-8 py-12"
-                  style={{
-                    borderTop: i === 0 ? "1px solid var(--color-border)" : undefined,
-                    borderBottom: "1px solid var(--color-border)",
-                  }}
-                >
-                  {/* Left: Text (55%) */}
-                  <div className="w-full md:w-[55%] flex flex-col gap-4 order-2 md:order-1">
-                    <span
-                      className="text-xs tracking-widest"
-                      style={{ color: "var(--color-sub)" }}
-                    >
-                      {block.num}
-                    </span>
-                    <h3
-                      className="font-mincho leading-snug"
-                      style={{
-                        fontSize: "clamp(20px, 2.5vw, 28px)",
-                        color: "var(--color-text)",
-                      }}
-                    >
-                      {block.heading}
-                    </h3>
-                    <p
-                      className="text-sm leading-loose whitespace-pre-line"
-                      style={{ color: "var(--color-sub)" }}
-                    >
-                      {block.overview}
-                    </p>
-                    <Link
-                      href={`/works/${block.slug}`}
-                      className="btn-secondary mt-2"
-                      style={{ alignSelf: "flex-start" }}
-                    >
-                      {block.title} →
-                    </Link>
-                  </div>
-
-                  {/* Right: Image (45%) */}
-                  <div
-                    className="w-full md:w-[45%] flex-shrink-0 order-1 md:order-2 relative overflow-hidden"
-                    style={{ aspectRatio: "1.63 / 1", minHeight: 200 }}
-                  >
-                    {block.mainImage ? (
-                      <Image
-                        src={block.mainImage}
-                        alt={block.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 45vw"
-                        style={{ objectFit: "cover" }}
-                      />
-                    ) : (
-                      <div className="img-placeholder w-full h-full" />
-                    )}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          {/* BEElog Spotlight — sticky scroll crossfade (desktop) / stacked (mobile) */}
+          <BeelogSticky blocks={beelogBlocks} />
 
           {/* Works Slider */}
           {sliderWorks.length > 0 && (

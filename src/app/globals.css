@@ -36,6 +36,19 @@ body {
   transform: translateY(0);
 }
 
+/* BEElog sticky-scroll crossfade: desktop only, stacked on mobile */
+.beelog-stacked {
+  display: none;
+}
+@media (max-width: 767px) {
+  .beelog-sticky {
+    display: none;
+  }
+  .beelog-stacked {
+    display: flex;
+  }
+}
+
 /* Marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
