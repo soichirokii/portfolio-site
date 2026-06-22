@@ -163,7 +163,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 className="block text-xs tracking-widest mb-4"
                 style={{ color: "var(--color-sub)" }}
               >
-                DESIGN PROCESS
+                PROCESS
               </span>
               <p className="text-sm leading-loose whitespace-pre-line" style={{ color: "var(--color-text)" }}>
                 {work.designProcess}
