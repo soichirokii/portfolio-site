@@ -9,7 +9,7 @@ export default function HeroTitle() {
       className="font-mincho leading-tight"
       style={{
         fontSize: "clamp(28px, 4vw, 40px)",
-        fontWeight: 500,
+        fontWeight: 700,
         color: "var(--color-text)",
       }}
     >
