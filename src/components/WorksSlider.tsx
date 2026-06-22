@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Work } from "@/lib/types";
+import ScrollReveal from "@/components/ScrollReveal";
 
 interface Props {
   works: Work[];
@@ -42,14 +43,14 @@ export default function WorksSlider({ works }: Props) {
       style={{ cursor: "grab", userSelect: "none" }}
     >
       <div className="flex gap-4 pb-2" style={{ width: "max-content" }}>
-        {works.map((work) => {
+        {works.map((work, i) => {
           const yearMatch = work.period.match(/\d{4}/);
           const year = yearMatch ? yearMatch[0] : "";
           return (
+            <ScrollReveal key={work.id} delay={i * 60} className="flex-shrink-0">
             <Link
-              key={work.id}
               href={`/works/${work.slug}`}
-              className="work-card flex-shrink-0 block"
+              className="work-card block"
               style={{ width: 300, textDecoration: "none", color: "inherit" }}
               draggable={false}
             >
@@ -94,6 +95,7 @@ export default function WorksSlider({ works }: Props) {
                 <p className="text-xs" style={{ color: "var(--color-sub)" }}>{year}</p>
               )}
             </Link>
+            </ScrollReveal>
           );
         })}
       </div>

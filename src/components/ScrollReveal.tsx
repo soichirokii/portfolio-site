@@ -10,14 +10,17 @@ interface Props {
 
 export default function ScrollReveal({ children, className = "", delay = 0 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  // `active` becomes true after hydration — keeps SSR output fully visible
-  const [active, setActive] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setActive(true);
     const el = ref.current;
     if (!el) return;
+
+    // If IntersectionObserver is unavailable, reveal immediately (graceful fallback)
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -27,27 +30,14 @@ export default function ScrollReveal({ children, className = "", delay = 0 }: Pr
           return () => clearTimeout(timer);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, [delay]);
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={
-        active
-          ? {
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(30px)",
-              transition:
-                "opacity 1s cubic-bezier(0.2,1,0.3,1), transform 1s cubic-bezier(0.2,1,0.3,1)",
-            }
-          : undefined
-      }
-    >
+    <div ref={ref} className={`reveal${visible ? " visible" : ""}${className ? ` ${className}` : ""}`}>
       {children}
     </div>
   );

@@ -4,36 +4,27 @@ import { fetchAllWorks } from "@/lib/notion";
 import ScrollReveal from "@/components/ScrollReveal";
 import WorksSlider from "@/components/WorksSlider";
 
-const BEELOG_BLOCKS = [
-  {
-    num: "01",
-    heading: "課外活動の情報格差をなくしたい。",
-    slug: "beelog-logo",
-    title: "BEElog ロゴデザイン",
-    overview:
-      "BEElogのロゴをデザイン。名前の由来にもなった「蜂」をモチーフに、シンプルさと視認性を意識して制作。\n\n「BEE log」という名前には、ミツバチが花から花へと蜜と花粉を運び、生態系を豊かにするように、「10代が情報を糊にして新しい価値を咲かせてほしい」という願いを込めた。初めてのロゴ制作で、視認性とデザイン性、意味との両立が難しかった。",
-  },
-  {
-    num: "02",
-    heading: "ロゴからサイトまで、全部ひとりで。",
-    slug: "beelog-website",
-    title: "BEElog サイトデザイン",
-    overview:
-      "BEElogのサイトを設計・制作。インスタの次は、本命のWebサイトを立ち上げた。初めてのUI/UX・開発で、何もわからない状態から公開まで漕ぎ着けた。\n\nメディアとしての役割を果たせるよう、見やすさと情報量のバランスを保てるよう設計した。プログラミング未経験の人でも記事を更新しやすい仕様にした。他のメディアを参考にしながら、身の回りの人にも助言を求めて進めた。情報を見て終わらせず、応募など次のアクションにつながる設計を意識した。",
-  },
-  {
-    num: "03",
-    heading: "ものの見方が変わった。",
-    slug: "beelog-sns",
-    title: "BEElog SNSオペレーション",
-    overview:
-      "BEElogのInstagram運用を担当。投稿テンプレートは現在まで2バージョンを作成。わかりやすさと情報量のバランスを保つことを意識した。進路選択の時期には進路情報の企画を実施。\n\n最高月間PV8万、フォロワー430人（2026年6月現在）。投稿頻度の保ち方が次の課題。",
-  },
+// Editorial headings for the Top-page spotlight. Title / overview / image
+// are pulled live from Notion (single source of truth — never goes stale).
+const BEELOG_META = [
+  { num: "01", heading: "課外活動の情報格差をなくしたい。", slug: "beelog-logo" },
+  { num: "02", heading: "ロゴからサイトまで、全部ひとりで。", slug: "beelog-website" },
+  { num: "03", heading: "ものの見方が変わった。", slug: "beelog-sns" },
 ];
 
 export default async function TopPage() {
   const allWorks = await fetchAllWorks();
   const sliderWorks = allWorks.filter((w) => w.type === "Work");
+
+  const beelogBlocks = BEELOG_META.map((m) => {
+    const work = allWorks.find((w) => w.slug === m.slug);
+    return {
+      ...m,
+      title: work?.title ?? "",
+      overview: work?.overview ?? "",
+      mainImage: work?.mainImage ?? null,
+    };
+  });
 
   return (
     <>
@@ -105,7 +96,7 @@ export default async function TopPage() {
 
           {/* BEElog Spotlight blocks */}
           <div className="flex flex-col gap-0">
-            {BEELOG_BLOCKS.map((block, i) => (
+            {beelogBlocks.map((block, i) => (
               <ScrollReveal key={block.num} delay={i * 80}>
                 <div
                   className="flex flex-col md:flex-row items-start gap-8 py-12"
@@ -148,10 +139,20 @@ export default async function TopPage() {
 
                   {/* Right: Image (45%) */}
                   <div
-                    className="w-full md:w-[45%] flex-shrink-0 order-1 md:order-2"
-                    style={{ aspectRatio: "1.63 / 1" }}
+                    className="w-full md:w-[45%] flex-shrink-0 order-1 md:order-2 relative overflow-hidden"
+                    style={{ aspectRatio: "1.63 / 1", minHeight: 200 }}
                   >
-                    <div className="img-placeholder w-full h-full" style={{ minHeight: 200 }} />
+                    {block.mainImage ? (
+                      <Image
+                        src={block.mainImage}
+                        alt={block.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 45vw"
+                        style={{ objectFit: "cover" }}
+                      />
+                    ) : (
+                      <div className="img-placeholder w-full h-full" />
+                    )}
                   </div>
                 </div>
               </ScrollReveal>
