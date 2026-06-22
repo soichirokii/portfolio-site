@@ -200,9 +200,17 @@ export default async function TopPage() {
             {/* Image */}
             <ScrollReveal className="w-full md:w-[360px] flex-shrink-0">
               <div
-                className="img-placeholder w-full"
+                className="relative w-full overflow-hidden"
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
-              />
+              >
+                <Image
+                  src="https://i.imgur.com/YMgpRGZ.png"
+                  alt="城井総一郎"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 360px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </ScrollReveal>
 
             {/* Text */}
