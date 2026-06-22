@@ -89,7 +89,7 @@ export default async function TopPage() {
           <ScrollReveal>
             <h2
               className="text-center font-sans mb-16"
-              style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
+              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
             >
               WORKS
             </h2>
@@ -130,7 +130,7 @@ export default async function TopPage() {
           <ScrollReveal>
             <h2
               className="text-center font-sans mb-12"
-              style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
+              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
             >
               ABOUT
             </h2>
@@ -183,7 +183,7 @@ export default async function TopPage() {
           <ScrollReveal>
             <h2
               className="font-sans mb-4"
-              style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
+              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
             >
               CONTACT
             </h2>

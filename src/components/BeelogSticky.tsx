@@ -91,7 +91,10 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
                 </div>
 
                 {/* Crossfading heading + body + link */}
-                <div className="crossfade-stack" style={{ position: "relative", minHeight: 320 }}>
+                <div
+                  className="crossfade-stack"
+                  style={{ position: "relative", minHeight: "clamp(360px, 34vw, 460px)" }}
+                >
                   {blocks.map((b, i) => (
                     <div
                       key={b.slug}
