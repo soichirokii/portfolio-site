@@ -1,5 +1,6 @@
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
+import Image from "next/image";
 
 const SKILLS = ["UI/UX Design", "Figma", "Illustrator", "Prototyping", "Branding", "Vibe Coding"];
 const TOOLS = ["Figma", "Illustrator", "Photoshop", "Canva", "Notion"];
@@ -29,9 +30,17 @@ export default function AboutPage() {
             {/* Photo */}
             <ScrollReveal className="w-full md:w-[360px] flex-shrink-0">
               <div
-                className="img-placeholder w-full"
+                className="relative w-full overflow-hidden"
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
-              />
+              >
+                <Image
+                  src="https://i.imgur.com/YMgpRGZ.png"
+                  alt="城井総一郎"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 360px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </ScrollReveal>
 
             {/* Profile text */}

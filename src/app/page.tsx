@@ -46,12 +46,16 @@ export default async function TopPage() {
           >
             {/* Left: Photo */}
             <div
-              className="w-full md:w-[60%] flex-shrink-0 order-1 md:order-1"
-              style={{ aspectRatio: "1 / 1.1" }}
+              className="w-full md:w-[60%] flex-shrink-0 order-1 md:order-1 relative overflow-hidden"
+              style={{ aspectRatio: "1 / 1.1", minHeight: 360 }}
             >
-              <div
-                className="w-full h-full img-placeholder"
-                style={{ background: "#E0DDD6", minHeight: 360 }}
+              <Image
+                src="https://i.imgur.com/q3MgUwj.jpeg"
+                alt="城井総一郎"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
+                style={{ objectFit: "cover" }}
               />
             </div>
 
