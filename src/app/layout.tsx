@@ -26,8 +26,8 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Soichiro Kii — Portfolio",
-  description: "城井総一郎のポートフォリオ。デザイン・テクノロジー・ビジネスを横断するデザインエンジニア。",
+  title: "Soichiro Kii | Portfolio",
+  description: "城井総一郎のポートフォリオです。",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
