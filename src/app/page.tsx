@@ -71,7 +71,7 @@ export default async function TopPage() {
               </div>
 
               {/* Scroll hint */}
-              <div className="scroll-hint mt-8 self-start">
+              <div className="scroll-hint mt-8 self-center">
                 <span className="scroll-hint-text">SCROLL</span>
                 <div className="scroll-hint-line" />
               </div>
