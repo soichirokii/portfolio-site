@@ -14,6 +14,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Close menu on route change
   useEffect(() => { setOpen(false); }, [pathname]);
@@ -24,9 +25,29 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Shrink navbar after scrolling past threshold
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
+  }
+
+  // Magnet effect: nav link drifts toward the cursor (desktop only)
+  function handleMagnetMove(e: React.MouseEvent<HTMLAnchorElement>) {
+    const link = e.currentTarget;
+    const rect = link.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    link.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+  }
+  function handleMagnetLeave(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.currentTarget.style.transform = "translate(0, 0)";
   }
 
   return (
@@ -40,7 +61,13 @@ export default function Navbar() {
           borderBottom: "1px solid var(--color-border)",
         }}
       >
-        <div className="max-w-content mx-auto px-6 flex items-center justify-between h-14">
+        <div
+          className="max-w-content mx-auto flex items-center justify-between"
+          style={{
+            padding: scrolled ? "14px 32px" : "28px 32px",
+            transition: "padding 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
           {/* Logo */}
           <Link
             href="/"
@@ -57,12 +84,16 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 className="nav-link text-sm font-medium"
+                onMouseMove={handleMagnetMove}
+                onMouseLeave={handleMagnetLeave}
                 style={{
+                  display: "inline-block",
                   color: isActive(l.href) ? "var(--color-text)" : "var(--color-sub)",
                   background: isActive(l.href) ? "rgba(74,158,191,0.12)" : "transparent",
                   padding: isActive(l.href) ? "4px 8px" : "4px 0",
                   textDecoration: "none",
-                  transition: "color 0.2s, background 0.2s",
+                  transition:
+                    "color 0.2s, background 0.2s, transform 0.15s cubic-bezier(0.2, 1, 0.4, 1)",
                 }}
               >
                 {l.label}
