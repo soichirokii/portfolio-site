@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Work } from "@/lib/types";
@@ -15,6 +15,7 @@ export default function WorksSlider({ works }: Props) {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   function onMouseDown(e: React.MouseEvent) {
     isDragging.current = true;
@@ -32,7 +33,51 @@ export default function WorksSlider({ works }: Props) {
 
   function onMouseUp() { isDragging.current = false; }
 
+  // Track which card is closest to the viewport center of the slider
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const cards = el.querySelectorAll<HTMLElement>("[data-card]");
+      if (!cards.length) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      // Snap to the first/last dot at the scroll extremes
+      if (el.scrollLeft <= 2) {
+        setActiveIndex(0);
+        return;
+      }
+      if (el.scrollLeft >= maxScroll - 2) {
+        setActiveIndex(cards.length - 1);
+        return;
+      }
+      const center = el.scrollLeft + el.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(cardCenter - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      setActiveIndex(best);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [works.length]);
+
   return (
+    <>
     <div
       ref={sliderRef}
       className="slider-container"
@@ -47,7 +92,7 @@ export default function WorksSlider({ works }: Props) {
           const yearMatch = work.period.match(/\d{4}/);
           const year = yearMatch ? yearMatch[0] : "";
           return (
-            <ScrollReveal key={work.id} delay={i * 60} className="flex-shrink-0">
+            <ScrollReveal key={work.id} delay={i * 60} className="flex-shrink-0" data-card>
             <Link
               href={`/works/${work.slug}`}
               className="work-card block"
@@ -100,5 +145,19 @@ export default function WorksSlider({ works }: Props) {
         })}
       </div>
     </div>
+
+    {/* Pill-dot position indicator */}
+    {works.length > 1 && (
+      <div className="slider-dots">
+        {works.map((work, i) => (
+          <div
+            key={work.id}
+            className={`dot-pill${activeIndex === i ? " active" : ""}`}
+            data-index={i}
+          />
+        ))}
+      </div>
+    )}
+    </>
   );
 }

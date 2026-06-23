@@ -105,6 +105,60 @@ body {
   width: 100%;
 }
 
+/* Hero scroll hint — cerulean light flowing down a vertical line */
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-hint-text {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--color-sub);
+}
+.scroll-hint-line {
+  width: 1px;
+  height: 40px;
+  background: #D3D1C7;
+  position: relative;
+  overflow: hidden;
+}
+.scroll-hint-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 14px;
+  background: var(--color-accent);
+  animation: scrollLineMove 1.8s ease-in-out infinite;
+}
+@keyframes scrollLineMove {
+  0% { top: -30%; }
+  50% { top: 60%; }
+  100% { top: 130%; }
+}
+
+/* Works slider — pill-dot position indicator */
+.slider-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+.dot-pill {
+  width: 14px;
+  height: 5px;
+  border-radius: 3px;
+  background: #D3D1C7;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dot-pill.active {
+  width: 28px;
+  background: var(--color-text);
+}
+
 /* Hero title — per-character rise-in */
 .hero-char {
   display: inline-block;

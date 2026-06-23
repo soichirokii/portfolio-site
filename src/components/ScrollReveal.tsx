@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   delay?: number;
 }
 
-export default function ScrollReveal({ children, className = "", delay = 0 }: Props) {
+export default function ScrollReveal({ children, className = "", delay = 0, ...rest }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -45,7 +45,11 @@ export default function ScrollReveal({ children, className = "", delay = 0 }: Pr
   }, [delay]);
 
   return (
-    <div ref={ref} className={`reveal${visible ? " visible" : ""}${className ? ` ${className}` : ""}`}>
+    <div
+      ref={ref}
+      className={`reveal${visible ? " visible" : ""}${className ? ` ${className}` : ""}`}
+      {...rest}
+    >
       {children}
     </div>
   );
