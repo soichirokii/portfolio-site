@@ -38,18 +38,6 @@ export default function Navbar() {
     return pathname.startsWith(href);
   }
 
-  // Magnet effect: nav link drifts toward the cursor (desktop only)
-  function handleMagnetMove(e: React.MouseEvent<HTMLAnchorElement>) {
-    const link = e.currentTarget;
-    const rect = link.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    link.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
-  }
-  function handleMagnetLeave(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.currentTarget.style.transform = "translate(0, 0)";
-  }
-
   return (
     <>
       <nav
@@ -84,16 +72,12 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 className="nav-link text-sm font-medium"
-                onMouseMove={handleMagnetMove}
-                onMouseLeave={handleMagnetLeave}
                 style={{
-                  display: "inline-block",
                   color: isActive(l.href) ? "var(--color-text)" : "var(--color-sub)",
                   background: isActive(l.href) ? "rgba(74,158,191,0.12)" : "transparent",
                   padding: isActive(l.href) ? "4px 8px" : "4px 0",
                   textDecoration: "none",
-                  transition:
-                    "color 0.2s, background 0.2s, transform 0.15s cubic-bezier(0.2, 1, 0.4, 1)",
+                  transition: "color 0.2s, background 0.2s",
                 }}
               >
                 {l.label}
