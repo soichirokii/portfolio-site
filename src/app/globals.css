@@ -274,14 +274,17 @@ body {
 }
 
 /* Category dot */
-.cat-dot {
+/* Category tag — outlined badge, matches the filter chips */
+.category-tag {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-accent);
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  color: var(--color-sub);
+  letter-spacing: 0.02em;
   margin-right: 6px;
-  flex-shrink: 0;
+  margin-bottom: 6px;
+  white-space: nowrap;
 }
 
 /* Work card image hover */

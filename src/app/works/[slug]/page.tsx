@@ -25,7 +25,6 @@ export default async function WorkDetailPage({ params }: Props) {
     { label: "ROLE", value: work.role },
     { label: "TARGET", value: work.target },
     { label: "PERIOD", value: work.period },
-    { label: "CATEGORY", value: work.category.join(", ") },
   ].filter((r) => r.value);
 
   return (
@@ -67,21 +66,24 @@ export default async function WorkDetailPage({ params }: Props) {
                   }}
                 />
               </div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="cat-dot" />
+              <div className="flex items-center mb-2">
                 <span className="text-xs" style={{ color: "var(--color-sub)" }}>
                   {work.type} · {year}
                 </span>
               </div>
               <h1
-                className="font-mincho leading-snug"
+                className="font-mincho leading-snug mb-3"
                 style={{ fontSize: "clamp(22px, 3vw, 36px)", color: "var(--color-text)" }}
               >
                 {work.title}
               </h1>
-              <p className="text-sm" style={{ color: "var(--color-sub)" }}>
-                {work.category.join(" / ")}
-              </p>
+              <div className="flex flex-wrap">
+                {work.category.map((c) => (
+                  <span key={c} className="category-tag">
+                    {c}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Right: Key visual */}
@@ -129,6 +131,23 @@ export default async function WorkDetailPage({ params }: Props) {
                     </span>
                   </div>
                 ))}
+                {work.category.length > 0 && (
+                  <div className="flex gap-8">
+                    <span
+                      className="text-xs tracking-widest w-20 flex-shrink-0 pt-0.5"
+                      style={{ color: "var(--color-sub)" }}
+                    >
+                      CATEGORY
+                    </span>
+                    <span className="flex flex-wrap">
+                      {work.category.map((c) => (
+                        <span key={c} className="category-tag">
+                          {c}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Overview */}

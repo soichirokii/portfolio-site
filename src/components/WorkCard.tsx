@@ -35,11 +35,12 @@ export default function WorkCard({ work, className = "" }: Props) {
 
       {/* Category */}
       {primaryCat && (
-        <div className="flex items-center mb-1">
-          <span className="cat-dot" />
-          <span className="text-xs" style={{ color: "var(--color-sub)" }}>
-            {work.category.join(" / ")}
-          </span>
+        <div className="flex flex-wrap mb-2">
+          {work.category.map((c) => (
+            <span key={c} className="category-tag">
+              {c}
+            </span>
+          ))}
         </div>
       )}
 

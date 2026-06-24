@@ -83,11 +83,8 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
                 >
                   BEElog
                 </h3>
-                <div className="flex items-center mb-6">
-                  <span className="cat-dot" />
-                  <span className="text-xs" style={{ color: "var(--color-sub)" }}>
-                    Branding
-                  </span>
+                <div className="flex flex-wrap mb-6">
+                  <span className="category-tag">Branding</span>
                 </div>
 
                 {/* Crossfading heading + body + link */}
