@@ -1,27 +1,23 @@
 import type { Metadata } from "next";
-import { DM_Sans, Shippori_Mincho, DM_Serif_Display } from "next/font/google";
+import { Zen_Maru_Gothic, Quicksand } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Opening from "@/components/Opening";
 
-const dmSans = DM_Sans({
+// 和文 — 丸ゴシック（Figma ver2 の決定版フォント）
+const zenMaru = Zen_Maru_Gothic({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-dm-sans",
+  variable: "--font-zen-maru",
   display: "swap",
 });
 
-const shippori = Shippori_Mincho({
+// 英字 — New Astro Soft が入るまでの暫定（Figma でも代用に使用）
+const quicksand = Quicksand({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-shippori",
-  display: "swap",
-});
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-dm-serif",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-quicksand",
   display: "swap",
 });
 
@@ -32,18 +28,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={`${dmSans.variable} ${shippori.variable} ${dmSerif.variable}`}>
+    <html
+      lang="ja"
+      className={`${zenMaru.variable} ${quicksand.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         {/* Mark JS as available before first paint. Reveal styles only apply
             when this class is present, so content is never stuck invisible
             if JS fails to load or run. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js');",
+            __html:
+              "document.documentElement.classList.add('js');" +
+              // OP がこれから再生されるなら、ヒーローの登場アニメを描画前から一時停止し、
+              // 幕が上がるタイミング（Opening.tsx）で再開させる。チラつき防止。
+              "try{var p=sessionStorage.getItem('kii-op')==='1';var r=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!p&&!r)document.documentElement.classList.add('op-playing');}catch(e){}",
           }}
         />
       </head>
       <body>
+        <Opening />
         <Navbar />
         <main>{children}</main>
         <Footer />

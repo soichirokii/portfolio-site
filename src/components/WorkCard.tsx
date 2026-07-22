@@ -46,7 +46,7 @@ export default function WorkCard({ work, className = "" }: Props) {
 
       {/* Title */}
       <h3
-        className="work-card-title font-mincho text-base leading-snug mb-1"
+        className="work-card-title font-jp text-base leading-snug mb-1"
         style={{ color: "var(--color-text)" }}
       >
         {work.title}

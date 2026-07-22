@@ -8,13 +8,14 @@ const config: Config = {
         bg: "#F7F4ED",
         text: "#2C2C2A",
         sub: "#888780",
-        accent: "#4A9EBF",
+        accent: "#6B97AC",
+        accent2: "#DDBD4B",
         border: "#D8D4C9",
       },
       fontFamily: {
-        sans: ["var(--font-dm-sans)", "sans-serif"],
-        mincho: ["var(--font-shippori)", "serif"],
-        serif: ["var(--font-dm-serif)", "serif"],
+        // 英字 = Quicksand（暫定）、和文 = Zen Maru Gothic
+        sans: ["var(--font-quicksand)", "var(--font-zen-maru)", "sans-serif"],
+        jp: ["var(--font-zen-maru)", "sans-serif"],
       },
       maxWidth: {
         content: "1164px",

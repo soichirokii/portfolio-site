@@ -6,7 +6,7 @@ export default function HeroTitle() {
   let charIndex = 0;
   return (
     <h1
-      className="font-mincho leading-tight"
+      className="font-jp leading-tight"
       style={{
         fontSize: "clamp(28px, 4vw, 40px)",
         fontWeight: 700,

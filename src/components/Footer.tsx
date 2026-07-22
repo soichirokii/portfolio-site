@@ -5,9 +5,12 @@ export default function Footer() {
       style={{ borderTop: "1px solid var(--color-border)" }}
     >
       <div className="max-w-content mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3">
-        <span className="font-serif text-sm" style={{ color: "var(--color-text)" }}>
-          Soichiro Kii
-        </span>
+        <span
+          className="logo-mark"
+          role="img"
+          aria-label="SOICHIRO KII"
+          style={{ height: 14, color: "var(--color-text)" }}
+        />
         <span className="text-xs" style={{ color: "var(--color-sub)" }}>
           © 2025 城井総一郎
         </span>

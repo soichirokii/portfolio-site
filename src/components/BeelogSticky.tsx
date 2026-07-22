@@ -78,7 +78,7 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
                   PICK UP
                 </span>
                 <h3
-                  className="font-mincho mb-3"
+                  className="font-jp mb-3"
                   style={{ fontSize: 32, color: "var(--color-text)" }}
                 >
                   BEElog
@@ -111,7 +111,7 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
                         {b.num}
                       </span>
                       <h4
-                        className="font-mincho leading-snug mb-4"
+                        className="font-jp leading-snug mb-4"
                         style={{ fontSize: "clamp(20px, 2.2vw, 28px)", color: "var(--color-text)" }}
                       >
                         {b.heading}
@@ -205,7 +205,7 @@ export default function BeelogSticky({ blocks }: { blocks: Block[] }) {
               {b.num}
             </span>
             <h4
-              className="font-mincho leading-snug"
+              className="font-jp leading-snug"
               style={{ fontSize: "clamp(20px, 6vw, 26px)", color: "var(--color-text)" }}
             >
               {b.heading}

@@ -59,10 +59,15 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-serif text-base tracking-wide"
-            style={{ color: "var(--color-text)", textDecoration: "none" }}
+            aria-label="SOICHIRO KII — Top"
+            style={{ color: "var(--color-text)", display: "inline-flex", alignItems: "center" }}
           >
-            Soichiro Kii
+            <span
+              className="logo-mark"
+              role="img"
+              aria-label="SOICHIRO KII"
+              style={{ height: scrolled ? 15 : 17, transition: "height 0.35s cubic-bezier(0.4, 0, 0.2, 1)" }}
+            />
           </Link>
 
           {/* Desktop links */}
@@ -74,7 +79,7 @@ export default function Navbar() {
                 className="nav-link text-sm font-medium"
                 style={{
                   color: isActive(l.href) ? "var(--color-text)" : "var(--color-sub)",
-                  background: isActive(l.href) ? "rgba(74,158,191,0.12)" : "transparent",
+                  background: isActive(l.href) ? "rgba(107,151,172,0.14)" : "transparent",
                   padding: isActive(l.href) ? "4px 8px" : "4px 0",
                   textDecoration: "none",
                   transition: "color 0.2s, background 0.2s",

@@ -39,11 +39,11 @@ export default async function TopPage() {
           >
             {/* Left: Photo */}
             <div
-              className="w-full md:w-[60%] flex-shrink-0 order-1 md:order-1 relative overflow-hidden"
+              className="hero-photo w-full md:w-[60%] flex-shrink-0 order-1 md:order-1 relative overflow-hidden"
               style={{ aspectRatio: "1 / 1.1", minHeight: 360 }}
             >
               <Image
-                src="https://i.imgur.com/q3MgUwj.jpeg"
+                src="/hero.jpg"
                 alt="城井総一郎"
                 fill
                 priority
@@ -56,12 +56,12 @@ export default async function TopPage() {
             <div className="w-full md:w-[40%] flex flex-col gap-6 pl-0 md:pl-12 order-2 md:order-2 pb-16 md:pb-0">
               <HeroTitle />
               <p
-                className="text-sm leading-relaxed"
-                style={{ color: "var(--color-sub)" }}
+                className="hero-enter text-sm leading-relaxed"
+                style={{ color: "var(--color-sub)", animationDelay: "0.5s" }}
               >
                 何気ない日常の中にある、小さな幸せを見つけて、増やしていく。
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="hero-enter flex flex-wrap gap-3" style={{ animationDelay: "0.65s" }}>
                 <Link href="/works" className="btn-primary">
                   Works を見る
                 </Link>
@@ -71,7 +71,7 @@ export default async function TopPage() {
               </div>
 
               {/* Scroll hint */}
-              <div className="scroll-hint mt-8 self-center">
+              <div className="hero-enter scroll-hint mt-8 self-center" style={{ animationDelay: "0.9s" }}>
                 <span className="scroll-hint-text">SCROLL</span>
                 <div className="scroll-hint-line" />
               </div>
@@ -83,14 +83,12 @@ export default async function TopPage() {
       {/* ─── WORKS SECTION ─── */}
       <section className="w-full py-20">
         <div className="max-w-content mx-auto px-6">
-          {/* Heading */}
+          {/* Heading — left-aligned title + dotted rule (Figma ver2) */}
           <ScrollReveal>
-            <h2
-              className="text-center font-sans mb-16"
-              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
-            >
-              WORKS
-            </h2>
+            <div className="heading-row mb-16">
+              <h2 className="heading-en">WORKS</h2>
+              <span className="heading-rule" />
+            </div>
           </ScrollReveal>
 
           {/* BEElog Spotlight — sticky scroll crossfade (desktop) / stacked (mobile) */}
@@ -126,12 +124,10 @@ export default async function TopPage() {
       <section className="w-full py-20" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="max-w-content mx-auto px-6">
           <ScrollReveal>
-            <h2
-              className="text-center font-sans mb-12"
-              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
-            >
-              ABOUT
-            </h2>
+            <div className="heading-row mb-12">
+              <h2 className="heading-en">ABOUT</h2>
+              <span className="heading-rule" />
+            </div>
           </ScrollReveal>
           <div className="flex flex-col md:flex-row items-start gap-10">
             {/* Image */}
@@ -141,7 +137,7 @@ export default async function TopPage() {
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
               >
                 <Image
-                  src="https://i.imgur.com/YMgpRGZ.png"
+                  src="/about.png"
                   alt="城井総一郎"
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
@@ -153,7 +149,7 @@ export default async function TopPage() {
             {/* Text */}
             <ScrollReveal delay={100} className="flex flex-col gap-5 flex-1">
               <h3
-                className="font-mincho text-xl"
+                className="font-jp text-xl"
                 style={{ color: "var(--color-text)" }}
               >
                 城井総一郎
@@ -180,8 +176,8 @@ export default async function TopPage() {
         <div className="max-w-content mx-auto px-6">
           <ScrollReveal>
             <h2
-              className="font-sans mb-4"
-              style={{ fontSize: "clamp(28px, 3.2vw, 36px)", fontWeight: 500, color: "var(--color-text)" }}
+              className="text-center font-sans mb-4"
+              style={{ fontSize: "clamp(30px, 4vw, 44px)", fontWeight: 700, letterSpacing: "0.01em", color: "var(--color-text)" }}
             >
               CONTACT
             </h2>

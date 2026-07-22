@@ -6,7 +6,10 @@
   --color-bg: #F7F4ED;
   --color-text: #2C2C2A;
   --color-sub: #888780;
-  --color-accent: #4A9EBF;
+  --color-accent: #6B97AC;        /* dusty blue — buttons, links, active states */
+  --color-accent2: #DDBD4B;       /* mustard — small light/spark accents */
+  --color-on-accent: #F4F7F9;     /* text on the blue fill */
+  --color-scroll-track: #DCE3E7;  /* pale blue track (scroll hint, slider dots) */
   --color-border: #D8D4C9;
 }
 
@@ -17,7 +20,7 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-zen-maru), sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -120,7 +123,7 @@ body {
 .scroll-hint-line {
   width: 1px;
   height: 40px;
-  background: #D3D1C7;
+  background: var(--color-scroll-track);
   position: relative;
   overflow: hidden;
 }
@@ -130,7 +133,7 @@ body {
   left: 0;
   width: 100%;
   height: 14px;
-  background: var(--color-accent);
+  background: var(--color-accent2);
   animation: scrollLineMove 1.8s ease-in-out infinite;
 }
 @keyframes scrollLineMove {
@@ -151,12 +154,12 @@ body {
   width: 14px;
   height: 5px;
   border-radius: 3px;
-  background: #D3D1C7;
+  background: var(--color-scroll-track);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dot-pill.active {
   width: 28px;
-  background: var(--color-text);
+  background: var(--color-accent);
 }
 
 /* Hero title — per-character rise-in */
@@ -174,28 +177,57 @@ body {
   }
 }
 
+/* Hero entrance — subtitle / buttons / scroll hint rise + fade in (staggered) */
+.hero-enter {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroEnter 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+@keyframes heroEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* While the opening curtain is up, hold every hero-entrance element at its
+   start state; Opening.tsx removes `op-playing` as the curtain lifts, so the
+   whole hero rises in together with the reveal. Repeat visits (no `op-playing`)
+   just animate on load as usual. */
+html.op-playing .hero-photo,
+html.op-playing .hero-char,
+html.op-playing .hero-enter {
+  animation-play-state: paused !important;
+}
+
 /* Button styles */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 16px 32px;
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   border-radius: 0;
-  border: 1px solid var(--color-text);
-  font-family: var(--font-dm-sans), sans-serif;
+  border: 1px solid var(--color-accent);
+  font-family: var(--font-zen-maru), sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: background 0.25s, color 0.25s;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
   text-decoration: none;
 }
 
 .btn-primary:hover {
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-accent);
+  box-shadow: 0 6px 18px -8px rgba(107, 151, 172, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .btn-secondary {
@@ -208,10 +240,10 @@ body {
   gap: 8px;
   padding: 16px 32px;
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-accent);
   border-radius: 0;
-  border: 1px solid var(--color-text);
-  font-family: var(--font-dm-sans), sans-serif;
+  border: 1px solid var(--color-accent);
+  font-family: var(--font-zen-maru), sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -225,7 +257,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--color-text);
+  background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -233,7 +265,7 @@ body {
 }
 
 .btn-secondary:hover {
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 .btn-secondary:hover::before {
@@ -268,9 +300,9 @@ body {
 
 .filter-chip:hover,
 .filter-chip.active {
-  background: var(--color-text);
-  color: var(--color-bg);
-  border-color: var(--color-text);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-color: var(--color-scroll-track);
 }
 
 /* Category dot */
@@ -387,4 +419,186 @@ textarea:focus {
   height: 1.5px;
   background: var(--color-text);
   transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ─── Section heading (Top) — left-aligned title + dotted rule (Figma ver2) ─── */
+.heading-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.heading-en {
+  flex-shrink: 0;
+  font-family: var(--font-quicksand), sans-serif;
+  font-weight: 700;
+  font-size: clamp(38px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+}
+/* dotted line filling the rest of the row, drawn in on reveal */
+.heading-rule {
+  flex: 1;
+  height: 0;
+  border-top: 2px dotted var(--color-border);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+}
+.reveal.visible .heading-rule {
+  transform: scaleX(1);
+}
+
+/* ─── Hero photo — gentle scale + fade reveal on load ─── */
+.hero-photo {
+  animation: heroPhotoIn 1.3s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
+@keyframes heroPhotoIn {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── Works carousel — glassy prev/next arrows ─── */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(
+    90deg,
+    rgba(107, 151, 172, 0.22),
+    rgba(255, 255, 255, 0.32)
+  );
+  box-shadow: 0 4px 12px rgba(44, 44, 42, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  color: #3D5E70;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.2, 1, 0.3, 1),
+    box-shadow 0.25s, opacity 0.25s;
+}
+.carousel-arrow:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 8px 20px rgba(44, 44, 42, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+.carousel-arrow.prev {
+  left: -8px;
+}
+.carousel-arrow.next {
+  right: -8px;
+}
+.carousel-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .carousel-arrow {
+    display: none;
+  }
+}
+
+/* ─── 開演オープニング（Figma ver2 のブルー幕 → ロゴ → 幕上げ） ─── */
+.op-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  cursor: pointer;
+  will-change: transform;
+  animation: opCurtain 2.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.op-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.op-logo {
+  display: block;
+  width: clamp(220px, 40vw, 380px);
+  aspect-ratio: 3219 / 442;
+  /* SVG を mask にして色は background-color で当てる（img だと currentColor が効かないため） */
+  background-color: #ffffff;
+  -webkit-mask: url(/logo.svg) center / contain no-repeat;
+  mask: url(/logo.svg) center / contain no-repeat;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  animation: opLogoIn 1s cubic-bezier(0.2, 1, 0.3, 1) 0.2s forwards;
+}
+
+/* ロゴワードマーク（ナビ/フッター）— SVG を mask 化、色は currentColor */
+.logo-mark {
+  display: inline-block;
+  aspect-ratio: 3219 / 442;
+  background-color: currentColor;
+  -webkit-mask: url(/logo.svg) center / contain no-repeat;
+  mask: url(/logo.svg) center / contain no-repeat;
+  transition: opacity 0.2s;
+}
+.logo-mark:hover {
+  opacity: 0.7;
+}
+.op-line {
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  animation: opLineIn 0.7s cubic-bezier(0.2, 1, 0.3, 1) 0.65s forwards;
+}
+@keyframes opCurtain {
+  0%,
+  68% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes opLogoIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes opLineIn {
+  to {
+    width: 80px;
+  }
+}
+/* クリック / Esc スキップ時：さっと引き上げる */
+.op-overlay.op-skip {
+  animation: none;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

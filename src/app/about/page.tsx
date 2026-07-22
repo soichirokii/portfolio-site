@@ -34,7 +34,7 @@ export default function AboutPage() {
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
               >
                 <Image
-                  src="https://i.imgur.com/YMgpRGZ.png"
+                  src="/about.png"
                   alt="城井総一郎"
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
@@ -46,7 +46,7 @@ export default function AboutPage() {
             {/* Profile text */}
             <ScrollReveal delay={80} className="flex flex-col gap-5 flex-1 pt-2">
               <h2
-                className="font-mincho"
+                className="font-jp"
                 style={{ fontSize: "clamp(22px, 3vw, 32px)", color: "var(--color-text)" }}
               >
                 城井総一郎 / Soichiro Kii
@@ -71,7 +71,7 @@ export default function AboutPage() {
         >
           <ScrollReveal>
             <h2
-              className="font-mincho mb-8"
+              className="font-jp mb-8"
               style={{ fontSize: "clamp(20px, 2.5vw, 28px)", color: "var(--color-text)" }}
             >
               いつも通りに、きらめきを。

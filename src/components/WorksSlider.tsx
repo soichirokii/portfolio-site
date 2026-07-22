@@ -16,6 +16,17 @@ export default function WorksSlider({ works }: Props) {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  // Scroll roughly one card (card width + gap) in the given direction
+  function scrollByCards(dir: 1 | -1) {
+    const el = sliderRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const step = card ? card.offsetWidth + 16 : el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  }
 
   function onMouseDown(e: React.MouseEvent) {
     isDragging.current = true;
@@ -43,6 +54,8 @@ export default function WorksSlider({ works }: Props) {
       const cards = el.querySelectorAll<HTMLElement>("[data-card]");
       if (!cards.length) return;
       const maxScroll = el.scrollWidth - el.clientWidth;
+      setAtStart(el.scrollLeft <= 2);
+      setAtEnd(el.scrollLeft >= maxScroll - 2);
       // Snap to the first/last dot at the scroll extremes
       if (el.scrollLeft <= 2) {
         setActiveIndex(0);
@@ -78,6 +91,19 @@ export default function WorksSlider({ works }: Props) {
 
   return (
     <>
+    <div style={{ position: "relative" }}>
+    {works.length > 1 && (
+      <button
+        type="button"
+        className="carousel-arrow prev"
+        style={{ backdropFilter: "blur(7px)", WebkitBackdropFilter: "blur(7px)" }}
+        onClick={() => scrollByCards(-1)}
+        disabled={atStart}
+        aria-label="前の作品へ"
+      >
+        ←
+      </button>
+    )}
     <div
       ref={sliderRef}
       className="slider-container"
@@ -131,7 +157,7 @@ export default function WorksSlider({ works }: Props) {
 
               {/* Title */}
               <h4
-                className="work-card-title font-mincho text-sm leading-snug mb-1"
+                className="work-card-title font-jp text-sm leading-snug mb-1"
                 style={{ color: "var(--color-text)" }}
               >
                 {work.title}
@@ -145,6 +171,19 @@ export default function WorksSlider({ works }: Props) {
           );
         })}
       </div>
+    </div>
+    {works.length > 1 && (
+      <button
+        type="button"
+        className="carousel-arrow next"
+        style={{ backdropFilter: "blur(7px)", WebkitBackdropFilter: "blur(7px)" }}
+        onClick={() => scrollByCards(1)}
+        disabled={atEnd}
+        aria-label="次の作品へ"
+      >
+        →
+      </button>
+    )}
     </div>
 
     {/* Pill-dot position indicator */}

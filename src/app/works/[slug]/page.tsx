@@ -72,7 +72,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 </span>
               </div>
               <h1
-                className="font-mincho leading-snug mb-3"
+                className="font-jp leading-snug mb-3"
                 style={{ fontSize: "clamp(22px, 3vw, 36px)", color: "var(--color-text)" }}
               >
                 {work.title}
