@@ -38,10 +38,7 @@ export default async function TopPage() {
             style={{ minHeight: "90vh" }}
           >
             {/* Left: Photo */}
-            <div
-              className="hero-photo w-full md:w-[60%] flex-shrink-0 order-1 md:order-1 relative overflow-hidden"
-              style={{ aspectRatio: "1 / 1.1", minHeight: 360 }}
-            >
+            <div className="hero-photo w-full md:w-[60%] flex-shrink-0 order-1 md:order-1 relative overflow-hidden">
               <Image
                 src="/hero.jpg"
                 alt="城井総一郎"
@@ -137,7 +134,7 @@ export default async function TopPage() {
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
               >
                 <Image
-                  src="/about.png"
+                  src="/about.jpg"
                   alt="城井総一郎"
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"

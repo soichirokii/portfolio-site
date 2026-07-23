@@ -52,18 +52,6 @@ body {
   }
 }
 
-/* Marquee */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.marquee-inner {
-  display: flex;
-  width: max-content;
-  animation: marquee 20s linear infinite;
-}
-
 /* Horizontal slider scrollbar hidden */
 .slider-container {
   overflow-x: auto;
@@ -451,7 +439,14 @@ textarea:focus {
 
 /* ─── Hero photo — gentle scale + fade reveal on load ─── */
 .hero-photo {
+  aspect-ratio: 1 / 1.1;
   animation: heroPhotoIn 1.3s cubic-bezier(0.2, 1, 0.3, 1) both;
+}
+/* モバイルは正方形に寄せて縦を詰め、タグラインを持ち上げる */
+@media (max-width: 767px) {
+  .hero-photo {
+    aspect-ratio: 1 / 1;
+  }
 }
 @keyframes heroPhotoIn {
   from {

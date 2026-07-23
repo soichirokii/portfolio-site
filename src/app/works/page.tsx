@@ -11,12 +11,7 @@ export default async function WorksPage() {
 
         {/* Heading */}
         <ScrollReveal>
-          <h1
-            className="text-center font-sans mb-10"
-            style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
-          >
-            WORKS
-          </h1>
+          <h1 className="heading-en text-center mb-12">WORKS</h1>
         </ScrollReveal>
 
         {/* Tabs + Filters + Grid (client component) */}

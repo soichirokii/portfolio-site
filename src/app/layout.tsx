@@ -22,6 +22,7 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://soichirokii.vercel.app"),
   title: "Soichiro Kii | Portfolio",
   description: "城井総一郎のポートフォリオです。",
 };

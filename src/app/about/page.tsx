@@ -13,12 +13,7 @@ export default function AboutPage() {
 
         {/* Heading */}
         <ScrollReveal>
-          <h1
-            className="text-center font-sans mb-16"
-            style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
-          >
-            ABOUT
-          </h1>
+          <h1 className="heading-en text-center mb-16">ABOUT</h1>
         </ScrollReveal>
 
         {/* Intro: Photo + Profile */}
@@ -34,7 +29,7 @@ export default function AboutPage() {
                 style={{ aspectRatio: "1 / 1", maxWidth: 360 }}
               >
                 <Image
-                  src="/about.png"
+                  src="/about.jpg"
                   alt="城井総一郎"
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
