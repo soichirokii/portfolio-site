@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +12,28 @@ export async function generateStaticParams() {
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+// 作品ごとにタイトル・説明・OG画像を出し分ける（SNS で作品別カードになる）
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const work = await getWorkBySlug(slug);
+  if (!work) return { title: "Not Found" };
+
+  const description =
+    work.overview?.replace(/\s+/g, " ").trim().slice(0, 120) ||
+    `${work.title} — 城井総一郎の制作実績。`;
+
+  return {
+    title: work.title,
+    description,
+    openGraph: {
+      title: `${work.title} | Soichiro Kii`,
+      description,
+      // 作品のメイン画像があればそれを OG に（無ければルートの共通OG画像が使われる）
+      ...(work.mainImage ? { images: [{ url: work.mainImage }] } : {}),
+    },
+  };
 }
 
 export default async function WorkDetailPage({ params }: Props) {

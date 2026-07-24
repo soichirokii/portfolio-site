@@ -23,7 +23,11 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://soichirokii.vercel.app"),
-  title: "Soichiro Kii | Portfolio",
+  title: {
+    default: "Soichiro Kii | Portfolio",
+    // 各ページで title: "Works" と書くと "Works | Soichiro Kii" になる
+    template: "%s | Soichiro Kii",
+  },
   description: "城井総一郎のポートフォリオです。",
 };
 

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { fetchAllWorks } from "@/lib/notion";
 import ScrollReveal from "@/components/ScrollReveal";
 import WorksFilter from "@/components/WorksFilter";
+
+export const metadata: Metadata = {
+  title: "Works",
+  description:
+    "城井総一郎が手がけたブランディング・グラフィック・UI/UX・開発の制作実績一覧です。",
+};
 
 export default async function WorksPage() {
   const works = await fetchAllWorks();
@@ -12,6 +19,7 @@ export default async function WorksPage() {
         {/* Heading */}
         <ScrollReveal>
           <h1 className="heading-en text-center mb-12">WORKS</h1>
+
         </ScrollReveal>
 
         {/* Tabs + Filters + Grid (client component) */}

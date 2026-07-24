@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "城井総一郎について。神山まるごと高専 デザインエンジニアリング学科在籍。「いつも通りに、きらめきを。」を軸に、メディア制作・イベント企画・Webデザインと開発に取り組んでいます。",
+};
 
 const SKILLS = ["UI/UX Design", "Figma", "Illustrator", "Prototyping", "Branding", "Vibe Coding"];
 const TOOLS = ["Figma", "Illustrator", "Photoshop", "Canva", "Notion"];

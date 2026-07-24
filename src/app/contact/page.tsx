@@ -36,12 +36,7 @@ export default function ContactPage() {
 
         {/* Heading */}
         <ScrollReveal>
-          <h1
-            className="text-center font-sans mb-4"
-            style={{ fontSize: 20, fontWeight: 500, color: "var(--color-text)" }}
-          >
-            CONTACT
-          </h1>
+          <h1 className="heading-en text-center mb-4">CONTACT</h1>
         </ScrollReveal>
 
         <ScrollReveal delay={40}>
