@@ -12,7 +12,7 @@ export default function Footer() {
           style={{ height: 14, color: "var(--color-text)" }}
         />
         <span className="text-xs" style={{ color: "var(--color-sub)" }}>
-          © 2025 城井総一郎
+          © 2026 城井総一郎
         </span>
       </div>
     </footer>
