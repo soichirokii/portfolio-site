@@ -55,6 +55,13 @@ body {
 /* Horizontal slider scrollbar hidden */
 .slider-container {
   overflow-x: auto;
+  /* `overflow-x: auto` on its own computes overflow-y to `auto` too, so the
+     reveal's 30px rise made the cards scrollable vertically. */
+  overflow-y: hidden;
+  /* Room for that rise so the clip never cuts a card mid-animation; the
+     negative margin keeps the surrounding layout unchanged. */
+  padding-bottom: 30px;
+  margin-bottom: -30px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -413,7 +420,8 @@ textarea:focus {
 .heading-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  /* Figma ver2: 見出しの右端から 35px できらめきラインが始まる */
+  gap: clamp(20px, 2.4vw, 34px);
 }
 .heading-en {
   flex-shrink: 0;
@@ -424,17 +432,30 @@ textarea:focus {
   letter-spacing: 0.01em;
   color: var(--color-text);
 }
-/* dotted line filling the rest of the row, drawn in on reveal */
+/* きらめきライン（Figma ver2）— ✦ が 12px / 8px 交互に 28px 間隔で並ぶ帯。
+   ロゴと同じく SVG を mask にして色は background-color で当てる。 */
 .heading-rule {
+  --sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='18'%3E%3Cg fill='%23000'%3E%3Cpath d='M6 0C6.2 4 8 5.8 12 6C8 6.2 6.2 8 6 12C5.8 8 4 6.2 0 6C4 5.8 5.8 4 6 0Z' transform='translate(0 3)'/%3E%3Cpath d='M6 0C6.2 4 8 5.8 12 6C8 6.2 6.2 8 6 12C5.8 8 4 6.2 0 6C4 5.8 5.8 4 6 0Z' transform='translate(28 5) scale(.6667)'/%3E%3C/g%3E%3C/svg%3E");
   flex: 1;
-  height: 0;
-  border-top: 2px dotted var(--color-border);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+  height: 18px;
+  background-color: var(--color-accent);
+  opacity: 0.9;
+  -webkit-mask-image: var(--sparkle);
+  mask-image: var(--sparkle);
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: 56px 18px;
+  mask-size: 56px 18px;
 }
-.reveal.visible .heading-rule {
-  transform: scaleX(1);
+/* 左から拭うように出す。JS が動いているときだけ隠すので、JS 無効でも線は見える */
+.js .heading-rule {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+}
+.js .reveal.visible .heading-rule {
+  clip-path: inset(0 0 0 0);
 }
 
 /* ─── Hero photo — gentle scale + fade reveal on load ─── */

@@ -56,7 +56,7 @@ export default async function TopPage() {
                 className="hero-enter text-sm leading-relaxed"
                 style={{ color: "var(--color-sub)", animationDelay: "0.5s" }}
               >
-                何気ない日常の中にある、小さな幸せを見つけて、増やしていく。
+                何気ないいつも通りの日常の中にある、小さな幸せを見つけて、増やしていく。
               </p>
               <div className="hero-enter flex flex-wrap gap-3" style={{ animationDelay: "0.65s" }}>
                 <Link href="/works" className="btn-primary">
