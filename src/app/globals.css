@@ -300,6 +300,53 @@ html.op-playing .hero-enter {
   border-color: var(--color-scroll-track);
 }
 
+/* External link button (work detail header) — outline by default, fills on hover.
+   Same left-to-right fill language as .btn-secondary, sized down for the header. */
+.link-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.35s ease;
+}
+/* Fill that slides in from the left on hover */
+.link-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.link-btn:hover {
+  color: var(--color-on-accent);
+}
+.link-btn:hover::before {
+  transform: scaleX(1);
+}
+.link-btn svg {
+  display: block;
+}
+/* Trailing external-link arrow nudges up-right on hover */
+.link-btn .ext-arrow {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link-btn:hover .ext-arrow {
+  transform: translate(2px, -2px);
+}
+
 /* Category dot */
 /* Category tag — outlined badge, matches the filter chips */
 .category-tag {

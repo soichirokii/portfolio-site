@@ -14,6 +14,8 @@ export interface Work {
   problem: string;
   mainImage: string | null;
   processImages: string[];
+  websiteUrl?: string;
+  instagramUrl?: string;
   order: number;
   status: string;
 }

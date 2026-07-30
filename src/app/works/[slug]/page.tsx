@@ -107,6 +107,96 @@ export default async function WorkDetailPage({ params }: Props) {
                   </span>
                 ))}
               </div>
+
+              {/* External links — shown only when a URL exists (no empty gap otherwise) */}
+              {(work.websiteUrl || work.instagramUrl) && (
+                <div className="flex flex-wrap gap-3 mt-1">
+                  {work.websiteUrl && (
+                    <a
+                      href={work.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-btn"
+                    >
+                      {/* Globe */}
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M3 12h18" />
+                        <path d="M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z" />
+                      </svg>
+                      <span>Visit site</span>
+                      {/* External-link arrow */}
+                      <svg
+                        className="ext-arrow"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 17 17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </a>
+                  )}
+                  {work.instagramUrl && (
+                    <a
+                      href={work.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-btn"
+                    >
+                      {/* Instagram */}
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
+                      </svg>
+                      <span>Instagram</span>
+                      {/* External-link arrow */}
+                      <svg
+                        className="ext-arrow"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 17 17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Right: Key visual */}

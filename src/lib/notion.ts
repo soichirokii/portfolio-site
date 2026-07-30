@@ -53,6 +53,8 @@ function pageToWork(page: any): Work {
       .split(/[\n,]/)
       .map((s: string) => s.trim())
       .filter(Boolean),
+    websiteUrl: p.WebsiteURL?.url ?? undefined,
+    instagramUrl: p.InstagramURL?.url ?? undefined,
     order: p.Order?.number ?? 99,
     status: p.Status?.select?.name ?? "",
   };
