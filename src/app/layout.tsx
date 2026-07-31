@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     template: "%s | Soichiro Kii",
   },
   description: "城井総一郎のポートフォリオです。",
+  verification: {
+    google: "92bgrX1sYpbW8xljewV8746q1vC02DhgJKWgDWzE9WM",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
